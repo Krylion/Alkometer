@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+
+<HTML>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+    <meta name="language" content="polish" />
+    <meta charset="UTF-8"/>
+    <meta name="keywords" content="Cezary, Kaszuba, Alkometer, alkomat, alkohol, trzezwosc, trzeźwość />
+    <meta name="description" content="Piłeś? Sprawdź swoją trzeźwość za pomocą tej prostej aplikacji!" />
+	<meta name="author" content="Cezary Kaszuba" />
+    <meta name="copyright" content="Cezary Kaszuba" />
+    <meta name="robots" content="all"/>
+    <title>
+        {% block title %}
+
+        {% endblock %}
+         - Cezary Kaszuba
+    </title>
+	<link href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <meta name="viewport" content="device:device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="shortcut icon" href="static/favicon.ico" />
+    <link rel="stylesheet" href="static/sheet.css" />
+
+   	<link href='static/google-fonts.css' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script src="static/slider.js"></script>
+
+    <script type="text/javascript">
+        jQuery(window).load(function() {
+            jQuery(".status").delay(1000).fadeOut();
+            jQuery(".preloader").delay(1000).fadeOut("slow");
+        });
+		$(function() {
+			$("#dialog").dialog({
+				autoOpen: false,
+                width: '63%',
+                maxWidth: 200,
+                height: 'auto',
+
+			});
+			$("#button").on("click", function() {
+				$("#dialog").dialog("open");
+			});
+		});
+
+
+    </script>
+</head>
+
+<body>
+    <div class="preloader">
+        <div class="status">
+            &nbsp;
+        </div>
+    </div>
+<div class="container">
+    <section><div>
+        <div class="capital">
+            {% block capital %}
+
+            {% endblock %}
+        </div>
+        <nav>
+            {% include "slider.jinja2" %}
+        </nav></div>
+    </section>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <section>
+        <div class="content">
+            <div class="real_content">
+            <p>
+                {% block content %}
+
+                {% endblock %}
+            </p>
+            </div>
+        </div>
+    </section>
+
+</div>
+</body>
+</HTML>

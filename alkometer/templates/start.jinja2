@@ -1,0 +1,151 @@
+{% extends "template.jinja2" %}
+
+{% block title %}
+Alkometer 0.8b - Piłes? Sprawdź swoją trzeźwość
+{% endblock %}
+
+{% block capital %}
+<img src="static/logo.png" alt="" />
+{% endblock %}
+
+{% block content %}
+    <br/>
+    <strong>WYPIŁEŚ WCZORAJ NADMIERNĄ ILOŚĆ ALKOHOLU?</strong>
+    <br/><br/><br/>
+    <strong>ZASTANAWIASZ SIĘ CZY WSIĄŚĆ ZA KIEROWNICĘ?</strong>
+    <br/><br/><br/>
+    <img src="static/kierownica.png" alt="" style="width: 38%;"/>
+    <br/><br/><br/>
+    <strong style="color: #507911;">NIE STWARZAJ ZAGROŻENIA!</strong>
+    <br/><br/><br/>
+    <strong style="color: #507911;">SPRAWDŹ SWOJĄ TRZEŹWOŚĆ JUŻ TERAZ!</strong>
+    <br/><br/><br/>
+    <p style="border-top: 2px solid gray;">
+    <br/>
+    <br/>
+    <br/>
+
+	<div id="dialog" title="Alkometer v0.8b" style="text-align: center;">
+        <form action="/result" method="POST">
+            <input type="text" name="start" value="start" style="display: none;"/>
+            <input type="text" name="weight" onclick="this.value=''" value="Podaj swoją wagę (kg)"/>
+            <br/><br/>
+            <input type="text" name="height" onclick="this.value=''" value="Podaj swój wzrost (cm)"/>
+            <br/><br/><hr>
+            Jesteś:
+            <br/>
+            <select name="sex">
+                <option value="man">Mężczyzną</option>
+                <option value="woman">Kobietą</option>
+            </select>
+
+            <br/>
+            Piłeś na:
+            <br/>
+            <select name="stomach">
+                <option value="empty">Pusty żołądek</option>
+                <option value="middle-filled">W połowie pełny</option>
+                <option value="filled">Pełny żołądek</option>
+            </select>
+
+            <br/>
+            Picie rozpocząłeś o:
+            <br/>
+            <select name="start_time">
+                {% for number in range(1,25) %}
+                    <option value="{{number}}">{% if number < 10 %}0{% endif %}{{number}}:00</option>
+                {% endfor %}
+            </select>
+            <br/>
+            Od rozpoczęcia upłynęło:
+            <br/>
+            <select name="duration">
+                {% for number in range(1,25) %}
+                    <option value="{{number}}">{{ number }} godzin</option>
+                {% endfor %}
+            </select>
+            <br/>
+            <br/>
+            <hr>
+            Wypiłeś:
+            <br/>
+            <input type="text" name="drinked_ml" onclick="this.value=''" value="ile?" style="width: 40px;"/>ml
+            <select name="alk_type" style="width: 100px;">
+                <option value="vodka">Wódki</option>
+                <option value="beer">Piwa</option>
+                <option value="wine">Wina</option>
+            </select> -
+            <input type="text" name="alco_amount" onclick="this.value=''" value="40" style="width: 40px;"/>%
+            <br/><br/>
+            <input type="submit" value="OBLICZ!" style="background-color: #335a3b;height: 70px;"/>
+        </form>
+	</div>
+    <input type="button" id="button" value="ROZPOCZNIJ!">
+    </p>
+    <br/><br/><br/>
+    {% if max_promiles %}
+        <a name="result">&nbsp;</a>
+        <strong>Ilość promili we krwi: <span style="color: red;">{{ max_promiles }} ‰</span></strong>
+        <br/><br/>
+        <strong style="color: #507911;">Będziesz trzeźwiał przez: <span style="color: red;">{{sobering_time}} godzin</span></strong>
+        <br/><br/>
+        <em>Sprawdź poniższy wykres, aby dowiedzieć się więcej...
+        <br/>(objaśnienie znajduje się pod tabelą)</em>
+    {% endif %}
+    <br/><br/><br/>
+    {% if result %}
+    <div class="duration">
+        <table>
+            <tr><td>Godzina</td><td>Ilość ‰</td><td style="font-size: 8pt;">Godzin od rozpoczęcia picia:</td><td style="
+    font-size: 8pt;">Godzin od zakonczenia picia:</td></tr>
+
+            {% for value in result['duration_hours'] %}
+
+            {% set promile = result['duration_promile'][loop.index-1] %}
+
+            {% if promile<= 0.2 %}
+                {% set color = "#c3c3c3" %}
+            {% elif promile<=0.5 %}
+                {% set color = "#ffc11b" %}
+            {% elif promile<=2.5 %}
+                {% set color = "#ff8459" %}
+            {% elif promile>=2.5 %}
+                {% set color = "#211691" %}
+            {% endif %}
+
+            <tr><td>{{ value }}</td> <td style="color: {{color}};">{{ result['duration_promile'][loop.index-1] }}</td><td>{{ result["duration_counter"][loop.index-1] }}</td><td>&nbsp;</td></tr>
+            {% endfor %}
+
+
+            {% for value in result['after_duration_hours'] %}
+
+            {% set promile = result['after_duration_promile'][loop.index-1] %}
+
+            {% if promile<= 0.2 %}
+                {% set color = "#c3c3c3" %}
+            {% elif promile<=0.5 %}
+                {% set color = "#ffc11b" %}
+            {% elif promile<=2.5 %}
+                {% set color = "#ff8459" %}
+            {% elif promile>=2.5 %}
+                {% set color = "#211691" %}
+            {% endif %}
+            <tr class="after_duration"><td>{{ value }}</td> <td style="color: {{color}};">{{ result['after_duration_promile'][loop.index-1] }}</td><td>&nbsp;</td><td>{{result["after_duration_counter"][loop.index-1]}}</td></tr>
+            {% endfor %}
+        </table>
+        </div>
+        <br/><br/>
+        <strong>Objaśnienie:</strong>
+        <br/>
+        <em>TABELA:</em>
+        <div class="description" style="background-color: #335a3b;">Okres spożywania</div>
+        <div class="description" style="background-color: #507911;">Okres trzeźwienia</div>
+        <br/><br/>
+        <em>PROMILE:</em>
+        <div class="description" style="background-color: #c3c3c3;">Stan trzeźwości</div>
+        <div class="description" style="background-color: #ffc11b;">Stan wskazujący</div>
+        <div class="description" style="background-color: #ff8459;">Stan nietrzeźwości</div>
+        <div class="description" style="background-color: #211691;">Stan upojenia</div>
+    {% endif %}
+<br/><br/>
+{% endblock %}

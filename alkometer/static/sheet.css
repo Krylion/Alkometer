@@ -1,0 +1,204 @@
+body{
+    margin: auto;
+}
+
+.container{
+    width: 100%;
+}
+
+hr{
+    width: 60%;
+    color: gray;
+    background-color: gray;
+}
+
+.capital{
+    width: 100%;
+    height: 50px;
+    margin: auto;
+    background-color: #fcefd2;
+    border-bottom: 5px solid #b7a06d;
+    position: absolute;
+    top: 0;
+    z-index: 4;
+    opacity: 0.8;
+    text-align: center;
+    -webkit-box-shadow: 0px 3px 2px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 3px 2px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 3px 2px 0px rgba(50, 50, 50, 0.75);
+    line-height: 40px;
+    text-shadow: 1px 1px 0px #283744;
+    font-size: 20pt;
+
+}
+
+input{
+    border-radius: 8px;
+    width: 300px;
+    height: 80px;
+    background-color: #335a3b;
+    color: white;
+    text-shadow: 1px 1px 0px #283744;
+    font-family: 'Sans PT', Arial, sans-serif;
+    padding-left: 5px;
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+.duration{
+    width: 250px;
+    background-color: #335a3b;
+    color: white;
+    margin: auto;
+    border-radius: 4px;
+}
+
+.duration table{
+    margin: auto;
+    width: 100%;
+}
+
+.duration td{
+    text-align: center;
+}
+
+table td{
+    padding-top: 10px;
+    text-align: left;
+
+}
+
+.after_duration{
+    background-color: #507911;
+}
+
+.content{
+    width: 100%;
+    position: absolute;
+    z-index: 5;
+    top: 77%;
+    background-color: white;
+    border-top: 5px solid #b7a06d;
+    -webkit-box-shadow: 0px -3px 2px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px -3px 2px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px -3px 2px 0px rgba(50, 50, 50, 0.75);
+    font-weight: normal;
+
+}
+
+.real_content{
+    width: 80%;
+    margin: auto;
+    font-size: 11pt;
+    font-family: 'Verdana', Arial, sans-serif;
+    text-align: center;
+
+}
+
+.real_content strong{
+    font-size: 25pt;
+    color: #335a3b;
+    text-shadow: 1px 1px 0px #283744;
+}
+
+.slider{
+    margin-top: -4%;
+}
+
+.slider img{
+    width: 100%;
+}
+
+
+.description{
+    width: 200px;
+    margin: auto;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    height: 20px;
+    border-radius: 6px;
+    text-shadow: 1px 1px 0px #283744;
+}
+
+
+#dialog{
+    font-weight: bold;
+    background-image: URL('alko-bg2.png');
+}
+
+#dialog input{
+    background-color: #507911;
+    border-radius: 8px;
+    width: 300px;
+    height: 35px;
+
+}
+
+#dialog select{
+    background-color: #507911;
+    border-radius: 8px;
+    width: 300px;
+    height: 43px;
+    color: white;
+    font-weight: bold;
+}
+
+.imgToRotate{position: absolute;display: none;}.current{display: block;}.up{text-align: center;margin-top:50px;}
+
+    @media screen and (max-width: 980px) {
+        .content{
+            top: 50%;
+            font-size: 15pt;
+        }
+    }
+
+    @media screen and (max-width: 700px) {
+        .content{
+            top: 30%;
+        }
+        .real_content strong{
+            font-size: 12pt;
+        }
+
+        .capital img{
+            width: 100%;
+            height: 50px;
+        }
+        input{
+            width: 150px;
+            font-size: 12pt;
+            height: 50px;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        .content{
+            top: 20%;
+            min-margin: 30px;
+        }
+        .capital{
+            height: 30px;
+            line-height: 25px;
+            font-size: 10pt;
+        }
+        .capital img{
+            height: 30px;
+            width: 100%;
+        }
+        #dialog input{
+            background-color: #507911;
+            font-size: 8pt;
+            width: 150px;
+            height: 40px;
+        }
+        #dialog select{
+            font-size: 8pt;
+            width: 150px;
+        }
+    }
+
+.preloader { position: absolute;  top: 0; left: 0; right: 0; bottom: 0;  background-color: #fefefe;  z-index: 99;  height: 100%; }
+
+.status {width: 200px; height: 200px; position: absolute; left: 50%; top: 50%; background-image: url(loader.gif); background-repeat: no-repeat;background-position: center; margin: -100px 0 0 -100px;}
+
